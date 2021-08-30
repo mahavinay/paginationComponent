@@ -73,7 +73,7 @@ function Pagination({data, booksPerPage}) {
     
     
     return (
-        <div>
+        <div data-testid = "pagination-container">
             <h1>Display List of Books</h1>
            
             <React.Fragment>
@@ -91,7 +91,7 @@ function Pagination({data, booksPerPage}) {
                         </Table.Header>
                         <Table.Body>
                             {currentItems.map(list => {
-                                return <Table.Row key={list.id} style={{ textAlign: 'center' }}>
+                                return <Table.Row key={list.isbn} style={{ textAlign: 'center' }}>
                                     <DataItem book={list}/>
                                 </Table.Row>
                             })}
