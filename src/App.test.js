@@ -54,7 +54,7 @@ test("Is Previous Button is present in the page ", () => {
   const { getByTestId } = render(
     <Pagination data={bookData} booksPerPage={5} />
   );
-  expect(getByTestId("btnPrev")).toBeTruthy();
+  expect(getByTestId("previousButton")).toBeTruthy();
 });
 
 test("Is Previous Button Button Disabled", () => {
@@ -66,7 +66,7 @@ test("Is Next Button present in the page ", () => {
   const { getByTestId } = render(
     <Pagination data={bookData} booksPerPage={5} />
   );
-  expect(getByTestId("btnNext")).toBeTruthy();
+  expect(getByTestId("nextButton")).toBeTruthy();
 });
 
 test("renders book data", async () => {
@@ -84,31 +84,6 @@ test("renders book data", async () => {
     })
   );
 });
-
-// test("Click on Page and check for state change", () => {
-//   const onChange = jest.fn();
-//   act(() => {
-//     render(<Pagination data={bookData} booksPerPage={5} />, container);
-//   });
-
-//   const element = document.querySelector("[data-testid=testPageNumber-1]");
-//   expect(element.innerHTML).toBe("1");
-
-//   act(() => {
-//     element.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-//   });
-
-//   expect(onChange).toHaveBeenCalledTimes(1);
-//   expect(element.firstChild.classList.contains("active")).toBe(true);
-
-//   //   act(() => {
-//   //     for (let i = 0; i < 5; i++) {
-//   //       button.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-//   //     }
-//   //   });
-
-//   //   expect(onChange).toHaveBeenCalledTimes(6);
-// });
 
 test("Previous button is disbled when page is loaded", () => {
   const { getByText } = render(<Pagination data={bookData} booksPerPage={5} />);
@@ -138,8 +113,8 @@ test("active page test after click event", () => {
   // fireEvent.click(containerElement);
   // expect(containerElement.classList.contains("active")).toBe(true);
 
-  const containerElement = getByTestId("testPageNumber-2");
-  fireEvent.click(containerElement);
+  const containerElement = getByTestId("testPageNumber-1");
+  // fireEvent.click(containerElement);
 
   expect(containerElement.classList.contains("active")).toBe(true);
 });

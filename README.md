@@ -14,16 +14,19 @@ This package contains the assessment for a typical React project.
 The directory contains a very basic `create-react-app` setup. Unarchive the package into a directory, and do:
 
 Install all packages:
+
 ```
 $ yarn install
 ```
 
 To run the app:
+
 ```
 $ yarn run start
 ```
 
 To run the tests:
+
 ```
 $ yarn run test
 ```
@@ -58,8 +61,7 @@ Some hints to help you along the way:
 
 Create an archive of the full project, including the `.git` folder and database and either email it or transfer it using e.g. WeTransfer or ToffeeShare.
 
-
-###### Pagination Component #######
+###### Pagination Component
 
 ## A pagination Component with states and Props
 
@@ -69,15 +71,20 @@ JavaScript
 CSS
 
 ## General Notes
-Stuck with react testing for state change for every page.
+
+Stuck with react testing for state change for every page, tried with fireevent for button click, fireevent not triggered so the test is not passing (spy,jestfn, simulate).
+Need more time for these kind of test cases.
+Have followed stackoverflow , react testing library documentation.
 
 ## Steps to run the Project
+
 git clone https://github.com/mahavinay/paginationComponent.git
 Open the Project Folder
 npm install - it will install all dependencies
 npm start - it open a browser window to see the application in localhost
 
 ## Available Scripts
+
 In the project directory, you can run:
 
 npm start
@@ -99,4 +106,3 @@ The build is minified and the filenames include the hashes.
 Your app is ready to be deployed!
 
 See the section about https://facebook.github.io/create-react-app/docs/deployment for more information
-

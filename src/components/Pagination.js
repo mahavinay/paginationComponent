@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Header, Table } from "semantic-ui-react";
 import "../styles/pagination.css";
 import DataItem from "./BookListItem";
+import Button from "./Button";
 
 function Pagination({ data, booksPerPage }) {
   const [currentPage, setcurrentPage] = useState(1);
   const pageNumberLimit = 5;
-  const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(5);
-  const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
+  const [maxPageNumbersToDisplay, setMaxPageNumbersToDisplay] = useState(5);
+  const [minPageNumbersToDisplay, setMinPageNumbersToDisplay] = useState(0);
 
   useEffect(() => {
     setcurrentPage(1);
@@ -28,8 +29,8 @@ function Pagination({ data, booksPerPage }) {
 
   const renderPageNumbers = pages.map((pageNum) => {
     if (
-      parseInt(`${pageNum}`) < maxPageNumberLimit + 1 &&
-      parseInt(`${pageNum}`) > minPageNumberLimit
+      parseInt(`${pageNum}`) < maxPageNumbersToDisplay + 1 &&
+      parseInt(`${pageNum}`) > minPageNumbersToDisplay
     ) {
       return (
         <li
@@ -49,21 +50,23 @@ function Pagination({ data, booksPerPage }) {
     }
   });
 
-  const handleNextbtn = () => {
-    setcurrentPage(currentPage + 1);
+  const handleNextButton = () => {
+    const nextPage = currentPage + 1;
+    setcurrentPage(nextPage);
 
-    if (currentPage + 1 > maxPageNumberLimit) {
-      setmaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
-      setminPageNumberLimit(minPageNumberLimit + pageNumberLimit);
+    if (nextPage > maxPageNumbersToDisplay) {
+      setMaxPageNumbersToDisplay(maxPageNumbersToDisplay + pageNumberLimit);
+      setMinPageNumbersToDisplay(minPageNumbersToDisplay + pageNumberLimit);
     }
   };
 
-  const handlePrevbtn = () => {
-    setcurrentPage(currentPage - 1);
+  const handlePreviousButton = () => {
+    const previousPage = currentPage - 1;
+    setcurrentPage(previousPage);
 
-    if ((currentPage - 1) % pageNumberLimit === 0) {
-      setmaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
-      setminPageNumberLimit(minPageNumberLimit - pageNumberLimit);
+    if (previousPage % pageNumberLimit === 0) {
+      setMaxPageNumbersToDisplay(maxPageNumbersToDisplay - pageNumberLimit);
+      setMinPageNumbersToDisplay(minPageNumbersToDisplay - pageNumberLimit);
     }
   };
 
@@ -94,37 +97,32 @@ function Pagination({ data, booksPerPage }) {
                 })}
               </Table.Body>
             </Table>
-            {currentItems.length >= 1 && (
+            {currentItems.length !== 0 && (
               <ul className="pageNumbers">
                 <li>
-                  <button
-                    onClick={handlePrevbtn}
+                  <Button
+                    handleOnClick={handlePreviousButton}
                     disabled={currentPage === pages[0] ? true : false}
-                    data-testid="btnPrev"
-                  >
-                    Prev
-                  </button>
+                    testId={"previousButton"}
+                    buttonText={"Prev"}
+                  />
                 </li>
                 {renderPageNumbers}
                 <li>
-                  <button
-                    onClick={handleNextbtn}
+                  <Button
+                    handleOnClick={handleNextButton}
                     disabled={
                       currentPage === pages[pages.length - 1] ? true : false
                     }
-                    data-testid="btnNext"
-                  >
-                    Next
-                  </button>
+                    testId={"nextButton"}
+                    buttonText={"Next"}
+                  />
                 </li>
               </ul>
             )}
           </>
         ) : (
-          <Header as="h4">
-            {" "}
-            No Books Found, go to home and find some books.
-          </Header>
+          <Header as="h4"> No Books Found.</Header>
         )}
       </React.Fragment>
     </div>
