@@ -6,7 +6,6 @@ import DataItem from './BookListItem';
 
 function Pagination({data, booksPerPage}) {
     const [currentPage, setcurrentPage] = useState(1);
-
     const pageNumberLimit = 5;
     const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(5);
     const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
@@ -14,22 +13,15 @@ function Pagination({data, booksPerPage}) {
     useEffect(() => {       
         setcurrentPage(1);
      },[data]);
-
     
      const pages = [];
-
-
      for (let i = 1; i <= Math.ceil(data.length / pageNumberLimit); i++) {
        pages.push(i);
      }
-     console.log("book list", data);
-     console.log("books per page", booksPerPage);
 
     const indexOfLastItem = currentPage * booksPerPage;
-    console.log(currentPage,booksPerPage,indexOfLastItem)
     const indexOfFirstItem = indexOfLastItem - booksPerPage;
     const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
-    console.log("Current Items", currentItems)
 
     const handleClick = (id) => {
         setcurrentPage(Number(id));
@@ -38,11 +30,12 @@ function Pagination({data, booksPerPage}) {
     const renderPageNumbers = pages.map((pageNum) => {
         if (parseInt(`${pageNum}`) < maxPageNumberLimit + 1 && parseInt(`${pageNum}`) > minPageNumberLimit) {
           return (
-            <li
+            <li  
               key={pageNum}
               id={`${pageNum}`}
               onClick={() => handleClick(`${pageNum}`)}
               className={currentPage === parseInt(`${pageNum}`) ? 'active' : undefined}
+              data-testid="testPageNumber"
             >
               {pageNum}
             </li>
@@ -69,11 +62,9 @@ function Pagination({data, booksPerPage}) {
           setminPageNumberLimit(minPageNumberLimit - pageNumberLimit);
         }
     };
-
-    
     
     return (
-        <div data-testid = "pagination-container">
+      <div data-testid = "pagination-container">
             <h1>Display List of Books</h1>
            
             <React.Fragment>
@@ -91,31 +82,31 @@ function Pagination({data, booksPerPage}) {
                         </Table.Header>
                         <Table.Body>
                             {currentItems.map(list => {
-                                return <Table.Row key={list.isbn} style={{ textAlign: 'center' }}>
+                                return <Table.Row key={list.id} style={{ textAlign: 'center' }}>
                                     <DataItem book={list}/>
-                                </Table.Row>
+                                </Table.Row>;
                             })}
                         </Table.Body>
                     </Table>
                     {currentItems.length >= 1 && <ul className='pageNumbers'>
                         <li>
-                        <button
-                            onClick={handlePrevbtn}
-                            disabled={currentPage === pages[0] ? true : false}
-                        >
-                            Prev
-                        </button>
-
-                        </li>
-                            {renderPageNumbers}
+                            <button
+                                onClick={handlePrevbtn}
+                                disabled={currentPage === pages[0] ? true : false}
+                                data-testid="btnPrev"
+                            >
+                                Prev
+                            </button>
+                        </li>                      
+                        {renderPageNumbers}
                         <li>
-
-                        <button
-                            onClick={handleNextbtn}
-                            disabled={currentPage === pages[pages.length - 1] ? true : false}
-                        >
-                            Next
-                        </button>
+                            <button
+                                onClick={handleNextbtn}
+                                disabled={currentPage === pages[pages.length - 1] ? true : false}
+                                data-testid="btnNext"
+                            >
+                                Next
+                            </button>
                         </li>
                     </ul>}
                 </>
@@ -124,8 +115,6 @@ function Pagination({data, booksPerPage}) {
             )}
         </React.Fragment>
         </div>
-    )
+    );
 }
-
 export default Pagination;
-

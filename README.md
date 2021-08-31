@@ -57,3 +57,46 @@ Some hints to help you along the way:
 ## Submission
 
 Create an archive of the full project, including the `.git` folder and database and either email it or transfer it using e.g. WeTransfer or ToffeeShare.
+
+
+###### Pagination Component #######
+
+## A pagination Component with states and Props
+
+Tech Stack
+React Hooks
+JavaScript
+CSS
+
+## General Notes
+Stuck with react testing for state change for every page.
+
+## Steps to run the Project
+git clone https://github.com/mahavinay/paginationComponent.git
+Open the Project Folder
+npm install - it will install all dependencies
+npm start - it open a browser window to see the application in localhost
+
+## Available Scripts
+In the project directory, you can run:
+
+npm start
+Runs the app in the development mode.
+Open http://localhost:3000 to view it in the browser.
+
+The page will reload if you make edits.
+You will also see any lint errors in the console.
+
+npm test
+Launches the test runner in the interactive watch mode.
+See the section about running tests(https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+npm run build
+Builds the app for production to the build folder.
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.
+Your app is ready to be deployed!
+
+See the section about https://facebook.github.io/create-react-app/docs/deployment for more information
+

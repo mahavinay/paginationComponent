@@ -1,12 +1,9 @@
 import React from 'react';
-
 import { Table } from 'semantic-ui-react';
 
-const BookListItem = ( {book} ) => {
-
+const BookListItem = ( {book} ) => { 
     return(
         <React.Fragment>
-         
             <Table.Cell>
                  {book.isbn}
             </Table.Cell>
