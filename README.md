@@ -72,9 +72,10 @@ CSS
 
 ## General Notes
 
-Stuck with react testing for state change for every page, tried with fireevent for button click, fireevent not triggered so the test is not passing (spy,jestfn, simulate).
+Stuck with react testing for state change for every page, tried with fireevent for button click, fireevent not triggered so the test is not passing (spy,jestfn, simulate, new mouse event click). So the last test case fails.
 Need more time for these kind of test cases.
 Have followed stackoverflow , react testing library documentation.
+I have used json data to display on the component.
 
 ## Steps to run the Project
 

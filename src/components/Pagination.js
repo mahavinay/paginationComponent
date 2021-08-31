@@ -4,18 +4,18 @@ import "../styles/pagination.css";
 import DataItem from "./BookListItem";
 import Button from "./Button";
 
-function Pagination({ data, booksPerPage }) {
-  const [currentPage, setcurrentPage] = useState(1);
-  const pageNumberLimit = 5;
-  const [maxPageNumbersToDisplay, setMaxPageNumbersToDisplay] = useState(5);
+function Pagination({ data, booksPerPage, numberOfPages }) {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [maxPageNumbersToDisplay, setMaxPageNumbersToDisplay] =
+    useState(numberOfPages);
   const [minPageNumbersToDisplay, setMinPageNumbersToDisplay] = useState(0);
 
   useEffect(() => {
-    setcurrentPage(1);
+    setCurrentPage(1);
   }, [data]);
 
   const pages = [];
-  for (let i = 1; i <= Math.ceil(data.length / pageNumberLimit); i++) {
+  for (let i = 1; i <= Math.ceil(data.length / booksPerPage); i++) {
     pages.push(i);
   }
 
@@ -24,17 +24,17 @@ function Pagination({ data, booksPerPage }) {
   const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
   const handleClick = (id) => {
-    setcurrentPage(Number(id));
+    setCurrentPage(Number(id));
   };
 
   const renderPageNumbers = pages.map((pageNum) => {
     if (
-      parseInt(`${pageNum}`) < maxPageNumbersToDisplay + 1 &&
+      parseInt(`${pageNum}`) <= maxPageNumbersToDisplay &&
       parseInt(`${pageNum}`) > minPageNumbersToDisplay
     ) {
       return (
         <li
-          key={pageNum}
+          key={`${pageNum}`}
           id={`${pageNum}`}
           onClick={() => handleClick(`${pageNum}`)}
           className={
@@ -52,21 +52,21 @@ function Pagination({ data, booksPerPage }) {
 
   const handleNextButton = () => {
     const nextPage = currentPage + 1;
-    setcurrentPage(nextPage);
+    setCurrentPage(nextPage);
 
     if (nextPage > maxPageNumbersToDisplay) {
-      setMaxPageNumbersToDisplay(maxPageNumbersToDisplay + pageNumberLimit);
-      setMinPageNumbersToDisplay(minPageNumbersToDisplay + pageNumberLimit);
+      setMaxPageNumbersToDisplay(maxPageNumbersToDisplay + numberOfPages);
+      setMinPageNumbersToDisplay(minPageNumbersToDisplay + numberOfPages);
     }
   };
 
   const handlePreviousButton = () => {
     const previousPage = currentPage - 1;
-    setcurrentPage(previousPage);
+    setCurrentPage(previousPage);
 
-    if (previousPage % pageNumberLimit === 0) {
-      setMaxPageNumbersToDisplay(maxPageNumbersToDisplay - pageNumberLimit);
-      setMinPageNumbersToDisplay(minPageNumbersToDisplay - pageNumberLimit);
+    if (previousPage % numberOfPages === 0) {
+      setMaxPageNumbersToDisplay(maxPageNumbersToDisplay - numberOfPages);
+      setMinPageNumbersToDisplay(minPageNumbersToDisplay - numberOfPages);
     }
   };
 
@@ -88,9 +88,9 @@ function Pagination({ data, booksPerPage }) {
                 </Table.Row>
               </Table.Header>
               <Table.Body>
-                {currentItems.map((list) => {
+                {currentItems.map((list, index) => {
                   return (
-                    <Table.Row key={list.id} style={{ textAlign: "center" }}>
+                    <Table.Row key={index} style={{ textAlign: "center" }}>
                       <DataItem book={list} />
                     </Table.Row>
                   );
@@ -102,7 +102,7 @@ function Pagination({ data, booksPerPage }) {
                 <li>
                   <Button
                     handleOnClick={handlePreviousButton}
-                    disabled={currentPage === pages[0] ? true : false}
+                    disabled={currentPage === 1 ? true : false}
                     testId={"previousButton"}
                     buttonText={"Prev"}
                   />
